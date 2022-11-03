@@ -1,4 +1,7 @@
 #!ipxe
 
-dhcp
-chain http://SERVER_HOST:SERVER_PORT/${net0/mac}/boot.ipxe
+:retry_dhcp
+dhcp || goto retry_dhcp
+
+:retry_chain
+chain http://SERVER_HOST:SERVER_PORT/${net0/mac}/boot.ipxe || echo "HTTP Boot failed, trying again" && sleep 2 && goto retry_chain

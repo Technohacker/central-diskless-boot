@@ -27,4 +27,4 @@ clean:
 	rm $(CLIENT)/ipxe.iso
 	$(MAKE) -C $(IPXE_SRC) clean
 
-.PHONY: clean
+.PHONY: clean $(CLIENT)/ipxe.iso
