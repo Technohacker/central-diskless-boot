@@ -1,0 +1,3 @@
+[submodule "ipxe"]
+	path = client/ipxe
+	url = https://github.com/ipxe/ipxe

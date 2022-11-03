@@ -1,0 +1,4 @@
+#!ipxe
+
+dhcp
+chain http://SERVER_HOST:SERVER_PORT/${net0/mac}/boot.ipxe
