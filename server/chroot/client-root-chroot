@@ -9,5 +9,5 @@ done
 chroot /srv/client_root
 for dir in $DIRS
 do
-    umount /srv/client_root/$dir
+    umount -l /srv/client_root/$dir
 done

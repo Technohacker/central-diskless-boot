@@ -165,6 +165,9 @@ To have a clean boot screen, just add `quiet splash vt.handoff=7` to the kernel 
 
 At this point, I now have functional, fully-diskless, persistent VMs with a common FS and boot configuration. I've prepared this repo in hopes that it may be useful to others in the same situation, and as a reference guide for future use :)
 
+## Installing snap packages on system image
+`snap` expects its corresponding daemon process `snapd` to be running to install any applications. This is usually handled from `systemd`, but systemd refuses to start any service from within `chroot`. This prevents installation from either `client-root-chroot` or `overlayroot-chroot`. One option I've identified is to allow direct read-write access to a specific VM to have it boot into the full client system and install snaps from there. This can be achieved by removing `overlayroot=...` and adding `rw` to the kernel command line. Make sure the root FS is exported as read/write in NFS before doing so however
+
 If you found this helpful, do consider supporting me on Ko-fi!
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J04QOOE)
