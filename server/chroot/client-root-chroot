@@ -1,0 +1,13 @@
+#!/bin/sh
+DIRS="sys dev proc"
+
+for dir in $DIRS
+do
+    mount --rbind /$dir /srv/client_root/$dir
+    mount --make-rslave /srv/client_root/$dir
+done
+chroot /srv/client_root
+for dir in $DIRS
+do
+    umount /srv/client_root/$dir
+done

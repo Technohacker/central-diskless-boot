@@ -45,7 +45,7 @@ This has the added advantage of not burdening the Server's root FS. A similar mo
 
 A pleasant surprise from Ubuntu was ready-made support for NFS root FS in its `initramfs-tools`. [A guide](https://help.ubuntu.com/community/DisklessUbuntuHowto) from Ubuntu's community help pages provided the following steps:
 
-1. Chroot into the Ubuntu rootfs on the Server
+1. Chroot into the Ubuntu rootfs on the Server (I've provided a simple script for this under `server/chroot/client-root-chroot` which will be useful for future maintenance)
     ```sh
     for dir in sys dev proc; do mount --rbind /$dir /srv/client_root/$dir && mount --make-rslave /srv/client_root/$dir; done
     chroot /srv/client_root
