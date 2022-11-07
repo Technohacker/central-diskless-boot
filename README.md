@@ -127,6 +127,8 @@ For parameterized mounts however, a different approach is needed. Alongside defi
     Description=Load home directory from NFS
     # Wait for the NFS client to be ready
     After=nfs-client.target
+
+    [Install]
     # Make sure the system waits for this mount to be ready before allowing other users
     WantedBy=multi-user.target
 
