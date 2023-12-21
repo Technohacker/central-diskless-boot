@@ -24,7 +24,7 @@ service.get('/:mac_addr/boot.ipxe', (req, res) => {
         log(`Boot requested from user: ${user}`);
         res.send(dedent(`
             #!ipxe
-            kernel /boot/vmlinuz initrd=initrd.img overlayroot=tmpfs:recurse=0 systemd.setenv=DISKLESS_HOME_NAME=${user} quiet splash vt.handoff=7
+            kernel /boot/vmlinuz initrd=initrd.img overlayroot=tmpfs:recurse=0 systemd.setenv=DISKLESS_HOME_NAME=${user} nfs.nfs4_unique_id="Custom NFS ${user}" quiet splash vt.handoff=7
             initrd /boot/initrd.img
             boot
         `));

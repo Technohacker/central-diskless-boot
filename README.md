@@ -159,6 +159,11 @@ To fix this, I create the following file at `/etc/systemd/resolved.conf.d/dns.co
 DNS=<space separated sequence of DNS servers>
 ```
 
+## Fixing NFSv4 locking and client IDs
+When multiple diskless VMs are run concurrently, NFSv4 file locking is broken even if each VM uses their own isolated share. This is noticeable via instances of log spam on the client/server about lost locks, as well as certain programs like GNOME Tracker repeatedly crashing
+
+As per the [Kernel NFS Docs](https://www.kernel.org/doc/html/latest/filesystems/nfs/client-identifier.html), this is due to all VMs sharing the same NFSv4 client ID. This makes it appear to the NFS server as if each VM was constantly rebooting, and hence clearing any obtained locks. This can be fixed by providing a custom per-user Client ID via the kernel command line argument `nfs.nfs4_unique_id`. The reference HTTP server in this repo uses the userID in this ID.
+
 ## Fixing snap applications
 On boot, `snap` attempts to start up, but gets stopped soon after. After looking at `journalctl`, AppArmor is to blame. This is because snap needs read access to the root FS, which in our case makes a network request to our NFS server. AppArmor is configured by default to deny such requests however, hence snap is stopped. AppArmor can be configured to allow NFS access, but a temporary (not recommended) fix for this is to disable AppArmor by adding `apparmor=0` to the kernel's command line from the HTTP boot server
 
